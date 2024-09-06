@@ -22,8 +22,10 @@ struct ContentView: View {
       TextField("", text: $typingText)
         .textFieldStyle(.squareBorder)
         .onSubmit {
-          texts.append(typingText)
-          typingText = ""
+          withAnimation {
+            texts.append(typingText)
+            typingText = ""
+          }
         }
 
     }
