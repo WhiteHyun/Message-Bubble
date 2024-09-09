@@ -21,89 +21,95 @@ struct BubbleShape: Shape {
   }
 
   func path(in rect: CGRect) -> Path {
-    var path = Path()
-    let gap: CGFloat = 16
-    let tailWidth: CGFloat = 4
-    let tailHeight: CGFloat = 4
+    Path { path in
 
-    path.move(to: .init(x: rect.origin.x + gap, y: rect.origin.y))
+      path.move(to: .init(x: rect.minX + cornerRadius, y: rect.minY))
 
-    // top edge
-    path.addLine(to: .init(x: rect.maxX - gap, y: rect.minY))
-    // top right corner
+      addTopRightEdge(to: &path, in: rect)
+      addBottomRightEdge(to: &path, in: rect)
+      addBottomLeftEdge(to: &path, in: rect)
+      addTopLeftEdge(to: &path, in: rect)
+    }
+  }
+
+  private func addTopRightEdge(to path: inout Path, in rect: CGRect) {
+    path.addLine(to: .init(x: rect.maxX - cornerRadius, y: rect.minY))
     path.addQuadCurve(
-      to: .init(x: rect.maxX, y: rect.minY + gap),
+      to: .init(x: rect.maxX, y: rect.minY + cornerRadius),
       control: .init(x: rect.maxX, y: rect.minY)
     )
+  }
 
+  private func addBottomRightEdge(to path: inout Path, in rect: CGRect) {
+    // make tail
     if tailPosition == .right {
-      // Right edge with tail
-
-      path.addLine(to: .init(x: rect.maxX, y: rect.maxY - 8))
-
-      // right tail
-      path.addQuadCurve(
-        to: .init(x: rect.maxX + tailWidth, y: rect.maxY),
-        control: .init(x: rect.maxX, y: rect.maxY)
-      )
-
-      // inner
-      path.addQuadCurve(
-        to: .init(x: rect.maxX - gap / 2, y: rect.maxY - tailHeight),
-        control: .init(x: rect.maxX - gap / 2, y: rect.maxY)
-      )
-
-      // outer
-      path.addQuadCurve(
-        to: .init(x: rect.maxX - gap - tailWidth, y: rect.maxY),
-        control: .init(x: rect.maxX - gap / 2, y: rect.maxY)
-      )
+      path.addLine(to: .init(x: rect.maxX, y: rect.maxY - tailCurveControlOffset))
+      addRightTail(to: &path, in: rect)
     } else {
-      // Right edge (straight)
-      path.addLine(to: .init(x: rect.maxX, y: rect.maxY - gap))
+      // just make edge
+      path.addLine(to: .init(x: rect.maxX, y: rect.maxY - cornerRadius))
       path.addQuadCurve(
-        to: .init(x: rect.maxX - gap, y: rect.maxY),
+        to: .init(x: rect.maxX - cornerRadius, y: rect.maxY),
         control: .init(x: rect.maxX, y: rect.maxY)
       )
     }
+  }
 
-    if tailPosition == .left {
-      path.addLine(to: .init(x: rect.minX + gap + tailWidth, y: rect.maxY))
-      // inner 골짜기
-      path.addQuadCurve(
-        to: .init(x: rect.minX + gap / 2, y: rect.maxY - tailHeight),
-        control: .init(x: rect.minX + gap / 2, y: rect.maxY)
-      )
-
-      // left tail
-      path.addQuadCurve(
-        to: .init(x: rect.minX - tailWidth, y: rect.maxY),
-        control: .init(x: rect.minX + gap / 2, y: rect.maxY)
-      )
-
-      path.addQuadCurve(
-        to: .init(x: rect.minX, y: rect.maxY - 8),
-        control: .init(x: rect.minX, y: rect.maxY)
-      )
-
-    } else {
-      path.addLine(to: .init(x: rect.minX + gap, y: rect.maxY))
-
-      // bottom left corner
-      path.addQuadCurve(
-        to: .init(x: rect.minX, y: rect.maxY - gap),
-        control: .init(x: rect.minX, y: rect.maxY)
-      )
-    }
-
-    path.addLine(to: .init(x: rect.minX, y: rect.minY + gap))
-
+  private func addRightTail(to path: inout Path, in rect: CGRect) {
     path.addQuadCurve(
-      to: .init(x: rect.origin.x + gap, y: rect.origin.y),
-      control: rect.origin
+      to: .init(x: rect.maxX + tailWidth, y: rect.maxY),
+      control: .init(x: rect.maxX, y: rect.maxY)
     )
 
-    return path
+    path.addQuadCurve(
+      to: .init(x: rect.maxX - cornerRadius / 3, y: rect.maxY - tailHeight),
+      control: .init(x: rect.maxX - cornerRadius / 3, y: rect.maxY)
+    )
+
+    path.addQuadCurve(
+      to: .init(x: rect.maxX - cornerRadius - tailWidth, y: rect.maxY),
+      control: .init(x: rect.maxX - cornerRadius / 3, y: rect.maxY)
+    )
+  }
+
+  private func addBottomLeftEdge(to path: inout Path, in rect: CGRect) {
+    // make tail
+    if tailPosition == .left {
+      path.addLine(to: .init(x: rect.minX + cornerRadius + tailWidth, y: rect.maxY))
+      addLeftTail(to: &path, in: rect)
+    } else {
+      // just make edge
+      path.addLine(to: .init(x: rect.minX + cornerRadius, y: rect.maxY))
+      path.addQuadCurve(
+        to: .init(x: rect.minX, y: rect.maxY - cornerRadius),
+        control: .init(x: rect.minX, y: rect.maxY)
+      )
+    }
+  }
+
+  private func addLeftTail(to path: inout Path, in rect: CGRect) {
+    path.addQuadCurve(
+      to: .init(x: rect.minX + cornerRadius / 3, y: rect.maxY - tailHeight),
+      control: .init(x: rect.minX + cornerRadius / 3, y: rect.maxY)
+    )
+
+    path.addQuadCurve(
+      to: .init(x: rect.minX - tailWidth, y: rect.maxY),
+      control: .init(x: rect.minX + cornerRadius / 3, y: rect.maxY)
+    )
+
+    path.addQuadCurve(
+      to: .init(x: rect.minX, y: rect.maxY - tailCurveControlOffset),
+      control: .init(x: rect.minX, y: rect.maxY)
+    )
+  }
+
+  private func addTopLeftEdge(to path: inout Path, in rect: CGRect) {
+    path.addLine(to: .init(x: rect.minX, y: rect.minY + cornerRadius))
+    path.addQuadCurve(
+      to: .init(x: rect.origin.x + cornerRadius, y: rect.origin.y),
+      control: rect.origin
+    )
   }
 }
 
