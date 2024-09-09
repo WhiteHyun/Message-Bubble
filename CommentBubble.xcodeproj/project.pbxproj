@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BF28BA8D2C8ED06300381548 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF28BA8C2C8ED06300381548 /* MessageBubble.swift */; };
+		BFB3F3D82C8B948B00751642 /* BubbleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB3F3D72C8B948B00751642 /* BubbleShape.swift */; };
 		BFB6B1BE2C8AE9BF00E30DAE /* CommentBubbleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB6B1BD2C8AE9BF00E30DAE /* CommentBubbleApp.swift */; };
 		BFB6B1C02C8AE9BF00E30DAE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB6B1BF2C8AE9BF00E30DAE /* ContentView.swift */; };
 		BFB6B1C22C8AE9C000E30DAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFB6B1C12C8AE9C000E30DAE /* Assets.xcassets */; };
@@ -14,6 +16,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BF28BA8C2C8ED06300381548 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
+		BFB3F3D72C8B948B00751642 /* BubbleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleShape.swift; sourceTree = "<group>"; };
 		BFB6B1BA2C8AE9BF00E30DAE /* CommentBubble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommentBubble.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BFB6B1BD2C8AE9BF00E30DAE /* CommentBubbleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBubbleApp.swift; sourceTree = "<group>"; };
 		BFB6B1BF2C8AE9BF00E30DAE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -54,6 +58,8 @@
 			children = (
 				BFB6B1BD2C8AE9BF00E30DAE /* CommentBubbleApp.swift */,
 				BFB6B1BF2C8AE9BF00E30DAE /* ContentView.swift */,
+				BFB3F3D72C8B948B00751642 /* BubbleShape.swift */,
+				BF28BA8C2C8ED06300381548 /* MessageBubble.swift */,
 				BFB6B1C12C8AE9C000E30DAE /* Assets.xcassets */,
 				BFB6B1C62C8AE9C000E30DAE /* CommentBubble.entitlements */,
 				BFB6B1C32C8AE9C000E30DAE /* Preview Content */,
@@ -140,6 +146,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				BFB6B1C02C8AE9BF00E30DAE /* ContentView.swift in Sources */,
+				BF28BA8D2C8ED06300381548 /* MessageBubble.swift in Sources */,
+				BFB3F3D82C8B948B00751642 /* BubbleShape.swift in Sources */,
 				BFB6B1BE2C8AE9BF00E30DAE /* CommentBubbleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
