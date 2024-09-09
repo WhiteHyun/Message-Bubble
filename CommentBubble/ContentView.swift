@@ -8,36 +8,87 @@
 import SwiftUI
 
 struct ContentView: View {
-  @State private var texts: [String] = []
+  @State private var messages: [Message] = []
   @State private var typingText: String = ""
-  init(texts: [String] = []) {
-    self._texts = State(wrappedValue: texts)
-  }
+  @State private var isTextEmpty = true
+  @State private var shouldAnimate = true
+
+  @Namespace private var chattingMovingNameSpace
 
   var body: some View {
-    VStack(alignment: .leading) {
-      ForEach(texts, id: \.self) {
-        Text($0)
+    GeometryReader { proxy in
+      VStack(alignment: .leading, spacing: 2) {
+        chattingsView(messages)
+          .frame(maxWidth: proxy.size.width / 2, alignment: .leading)
+
+        showingChatBubble
+          .frame(maxWidth: proxy.size.width / 2, alignment: .leading)
+
+        Divider()
+          .padding(.vertical)
+
+        chattingTextField
       }
-      TextField("", text: $typingText)
-        .textFieldStyle(.squareBorder)
-        .onSubmit {
-          withAnimation {
-            texts.append(typingText)
-            typingText = ""
+      .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
+      .safeAreaPadding(30)
+    }
+  }
+
+  private func chattingsView(_ messages: [Message]) -> some View {
+    ForEach(messages) { message in
+      MessageBubble(message: message, tail: messages.last?.id == message.id ? .left : .none)
+        .transition(
+          .asymmetric(
+            insertion: .move(edge: .bottom),
+            removal: .opacity
+          )
+        )
+    }
+  }
+
+  private var showingChatBubble: some View {
+    MessageBubble(message: .init(content: typingText, type: .sent), tail: .left)
+      .opacity(isTextEmpty ? 0 : 1)
+      .animation(shouldAnimate ? .easeInOut(duration: 0.6) : .none, value: isTextEmpty)
+  }
+
+  private var chattingTextField: some View {
+    TextField("", text: $typingText)
+      .textFieldStyle(.roundedBorder)
+      .onChange(of: typingText) { _, newValue in
+        if newValue.isEmpty, !isTextEmpty {
+          // 텍스트를 모두 지웠을 때 (fade out)
+          withAnimation(.easeOut(duration: 0.3)) {
+            isTextEmpty = true
+          }
+        } else if !newValue.isEmpty, isTextEmpty {
+          // 텍스트를 입력하기 시작했을 때 (fade in)
+          withAnimation(.easeIn(duration: 0.3)) {
+            isTextEmpty = false
           }
         }
+        shouldAnimate = true
+      }
+      .onSubmit {
+        guard !typingText.isEmpty else { return }
+        Task {
+          let message = Message(content: typingText, type: .sent)
+          typingText = ""
+          isTextEmpty = true
+          shouldAnimate = false
+          withAnimation {
+            messages.append(message)
+          }
 
-    }
-    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .bottomLeading)
-    .safeAreaPadding(30)
+          try? await Task.sleep(for: .seconds(60))
+          withAnimation {
+            messages.removeAll { $0.id == message.id }
+          }
+        }
+      }
   }
-}
-
-private extension [String] {
-  static var mock: Self { ["Hello, World!", "My name is SeungHyun", "It's lorem Ipsum"] }
 }
 
 #Preview {
-  ContentView(texts: .mock)
+  ContentView()
 }
