@@ -131,23 +131,21 @@ struct BubbleShape: Shape {
 
     HStack {
       Spacer()
-      Text("Hey Sam, how's your day going so far?")
-        .padding(.vertical, 6)
-        .padding(.horizontal, 8)
-        .foregroundStyle(.white)
-        .background {
-          BubbleShape(tailPosition: .right)
-            .fill(.blue)
-        }
+      MessageBubble(message: .init(content: "Hey Sam, how's your day going so far?", type: .sent))
     }
+
     HStack {
-      Text("Pretty good, thanks! Just finished a big project at work. How about you?")
-        .padding(.vertical, 6)
-        .padding(.horizontal, 8)
-        .background {
-          BubbleShape(tailPosition: .left)
-            .fill(.windowBackground)
-        }
+      MessageBubble(message: .init(content: "Pretty good, thanks! Just finished a big project at work. How about you?", type: .received))
+      Spacer()
+    }
+
+    HStack {
+      Spacer()
+      MessageBubble(message: .init(content: ".", type: .sent))
+    }
+
+    HStack {
+      MessageBubble(message: .init(content: "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with deskt", type: .received))
       Spacer()
     }
   }
