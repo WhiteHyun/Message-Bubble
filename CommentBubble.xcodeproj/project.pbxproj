@@ -3,28 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 56;
+	objectVersion = 70;
 	objects = {
 
-/* Begin PBXBuildFile section */
-		BF28BA8D2C8ED06300381548 /* MessageBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF28BA8C2C8ED06300381548 /* MessageBubble.swift */; };
-		BFB3F3D82C8B948B00751642 /* BubbleShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB3F3D72C8B948B00751642 /* BubbleShape.swift */; };
-		BFB6B1BE2C8AE9BF00E30DAE /* CommentBubbleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB6B1BD2C8AE9BF00E30DAE /* CommentBubbleApp.swift */; };
-		BFB6B1C02C8AE9BF00E30DAE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BFB6B1BF2C8AE9BF00E30DAE /* ContentView.swift */; };
-		BFB6B1C22C8AE9C000E30DAE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFB6B1C12C8AE9C000E30DAE /* Assets.xcassets */; };
-		BFB6B1C52C8AE9C000E30DAE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BFB6B1C42C8AE9C000E30DAE /* Preview Assets.xcassets */; };
-/* End PBXBuildFile section */
-
 /* Begin PBXFileReference section */
-		BF28BA8C2C8ED06300381548 /* MessageBubble.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageBubble.swift; sourceTree = "<group>"; };
-		BFB3F3D72C8B948B00751642 /* BubbleShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BubbleShape.swift; sourceTree = "<group>"; };
 		BFB6B1BA2C8AE9BF00E30DAE /* CommentBubble.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CommentBubble.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		BFB6B1BD2C8AE9BF00E30DAE /* CommentBubbleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentBubbleApp.swift; sourceTree = "<group>"; };
-		BFB6B1BF2C8AE9BF00E30DAE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		BFB6B1C12C8AE9C000E30DAE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		BFB6B1C42C8AE9C000E30DAE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		BFB6B1C62C8AE9C000E30DAE /* CommentBubble.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CommentBubble.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		BF4FCFFD2CF046D800B94DE2 /* CommentBubble */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = CommentBubble; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		BFB6B1B72C8AE9BF00E30DAE /* Frameworks */ = {
@@ -40,7 +28,7 @@
 		BFB6B1B12C8AE9BF00E30DAE = {
 			isa = PBXGroup;
 			children = (
-				BFB6B1BC2C8AE9BF00E30DAE /* CommentBubble */,
+				BF4FCFFD2CF046D800B94DE2 /* CommentBubble */,
 				BFB6B1BB2C8AE9BF00E30DAE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -51,28 +39,6 @@
 				BFB6B1BA2C8AE9BF00E30DAE /* CommentBubble.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		BFB6B1BC2C8AE9BF00E30DAE /* CommentBubble */ = {
-			isa = PBXGroup;
-			children = (
-				BFB6B1BD2C8AE9BF00E30DAE /* CommentBubbleApp.swift */,
-				BFB6B1BF2C8AE9BF00E30DAE /* ContentView.swift */,
-				BFB3F3D72C8B948B00751642 /* BubbleShape.swift */,
-				BF28BA8C2C8ED06300381548 /* MessageBubble.swift */,
-				BFB6B1C12C8AE9C000E30DAE /* Assets.xcassets */,
-				BFB6B1C62C8AE9C000E30DAE /* CommentBubble.entitlements */,
-				BFB6B1C32C8AE9C000E30DAE /* Preview Content */,
-			);
-			path = CommentBubble;
-			sourceTree = "<group>";
-		};
-		BFB6B1C32C8AE9C000E30DAE /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				BFB6B1C42C8AE9C000E30DAE /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -89,6 +55,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				BF4FCFFD2CF046D800B94DE2 /* CommentBubble */,
 			);
 			name = CommentBubble;
 			productName = CommentBubble;
@@ -133,8 +102,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFB6B1C52C8AE9C000E30DAE /* Preview Assets.xcassets in Resources */,
-				BFB6B1C22C8AE9C000E30DAE /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,10 +112,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BFB6B1C02C8AE9BF00E30DAE /* ContentView.swift in Sources */,
-				BF28BA8D2C8ED06300381548 /* MessageBubble.swift in Sources */,
-				BFB3F3D82C8B948B00751642 /* BubbleShape.swift in Sources */,
-				BFB6B1BE2C8AE9BF00E30DAE /* CommentBubbleApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
