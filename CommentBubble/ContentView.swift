@@ -11,7 +11,6 @@ struct ContentView: View {
   @State private var messages: [Message] = []
   @State private var typingText: String = ""
   @State private var isTextEmpty = true
-  @State private var shouldAnimate = true
 
   @Namespace private var chattingMovingNameSpace
 
@@ -23,6 +22,8 @@ struct ContentView: View {
 
         showingChatBubble
           .frame(maxWidth: proxy.size.width / 2, alignment: .leading)
+
+        // MARK: - User Input View
 
         Divider()
           .padding(.vertical)
@@ -49,7 +50,6 @@ struct ContentView: View {
   private var showingChatBubble: some View {
     MessageBubble(message: .init(content: typingText, type: .sent), tail: .left)
       .opacity(isTextEmpty ? 0 : 1)
-      .animation(shouldAnimate ? .easeInOut(duration: 0.6) : .none, value: isTextEmpty)
   }
 
   private var chattingTextField: some View {
@@ -67,7 +67,6 @@ struct ContentView: View {
             isTextEmpty = false
           }
         }
-        shouldAnimate = true
       }
       .onSubmit {
         guard !typingText.isEmpty else { return }
@@ -75,7 +74,6 @@ struct ContentView: View {
           let message = Message(content: typingText, type: .sent)
           typingText = ""
           isTextEmpty = true
-          shouldAnimate = false
           withAnimation {
             messages.append(message)
           }
