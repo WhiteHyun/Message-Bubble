@@ -27,14 +27,21 @@ enum TailPosition {
 // MARK: - Message
 
 struct Message: Identifiable, Hashable {
-  let id: UUID = .init()
-  let content: String
+  let id: UUID
+  var content: String
   let type: MessageType
+
+  init(id: UUID = .init(), content: String, type: MessageType) {
+    self.id = id
+    self.content = content
+    self.type = type
+  }
 }
 
 // MARK: - MessageBubble
 
 struct MessageBubble: View {
+  @State private var textHeight: CGFloat = 0
   let message: Message
   let tail: TailPosition
 
@@ -44,16 +51,33 @@ struct MessageBubble: View {
   }
 
   var body: some View {
-    Text(message.content)
-      .lineLimit(nil)
-      .padding(.vertical, 6)
-      .padding(.horizontal, 10)
-      .frame(minWidth: 34)
-      .foregroundStyle(message.type == .sent ? .white : .primary)
-      .background {
-        BubbleShape(tailPosition: tailPosition)
-          .fill(message.type == .sent ? .blue : Color(.windowBackgroundColor))
-      }
+    ZStack {
+      Text(message.content)
+        .lineLimit(nil)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 10)
+        .frame(minWidth: 34, minHeight: textHeight)
+        .foregroundStyle(message.type == .sent ? .white : .primary)
+        .background {
+          BubbleShape(tailPosition: tailPosition)
+            .fill(message.type == .sent ? .blue : Color(.windowBackgroundColor))
+        }
+      // 높이를 측정하기 위한 Text
+      Text(".")
+        .lineLimit(nil)
+        .padding(.vertical, 6)
+        .padding(.horizontal, 10)
+        .background(
+          // GeometryReader를 사용하여 크기 측정
+          GeometryReader { geometry in
+            Color.clear
+              .onAppear {
+              textHeight = geometry.size.height
+            }
+          }
+        )
+        .hidden() // 숨김 처리
+    }
   }
 
   private var tailPosition: BubbleShape.Position {
@@ -71,6 +95,7 @@ struct MessageBubble: View {
 }
 
 #Preview {
+  @Previewable @State var flicking: String = ""
   VStack {
     HStack {
       Spacer()
@@ -80,12 +105,19 @@ struct MessageBubble: View {
       MessageBubble(message: .init(content: "Hey Sam, how's your day going so far?", type: .received))
       Spacer()
     }
+
     HStack {
       Spacer()
-      MessageBubble(message: .init(content: ".", type: .sent))
+      MessageBubble(message: .init(content: flicking, type: .sent))
+        .border(.green)
     }
   }
   .padding()
   .frame(maxWidth: .infinity, maxHeight: .infinity)
   .background(.background)
+  .onAppear {
+    Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+      flicking = flicking.isEmpty ? ".": ""
+    }
+  }
 }
